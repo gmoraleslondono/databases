@@ -33,26 +33,28 @@ CREATE TABLE reviews(
 );
 
 -- 6. Test reviews: try to add a review with rating 6. What happens?
-INSERT INTO reviews VALUE(1, 1, 6, 'Extremely good!');
+INSERT INTO reviews VALUES(1, 1, 6, 'Extremelly good!');
 
 -- Got an error -> since rating has a check it only accept values between 1 and 5.
 
 -- Execution finished with errors.
--- Result: near "VALUE": syntax error
+-- Result: CHECK constraint failed: rating >= 1 AND rating <= 5
 -- At line 36:
--- INSERT INTO reviews VALUE
+-- INSERT INTO reviews VALUES(1, 1, 6, 'Extremelly good!');
 
 -- 7. Test reviews: try to add a review for product 50. What happens?
-INSERT INTO reviews VALUE(1, 50, 1, 'Bad :(');
+INSERT INTO reviews VALUES(1, 50, 1, 'Bad :(');
 
 -- Got an error -> since product with product_id 50 doesn't exist.
 
 -- Execution finished with errors.
--- Result: near "VALUE": syntax error
+-- Result: FOREIGN KEY constraint failed
 -- At line 46:
--- INSERT INTO reviews VALUE
+-- INSERT INTO reviews VALUES(1, 50, 1, 'Bad :(');
 
 
+-- testing with existing and correct data.
+INSERT INTO reviews VALUES (1, 1, 3, 'Good');
 
 
 
