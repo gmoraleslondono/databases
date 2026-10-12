@@ -162,10 +162,30 @@ WHERE C.city IN ('Uppsala', 'Stockholm');
 -- Result: 5 rows returned in 17ms
 
 
+-- Level 2
 
+-- These exercises change data. Click Revert Changes after each one, so webshop.db is back to normal.
+-- Exercise 5
+-- A new customer, Leo Falk from Uppsala, places an order today: 1 Hoodie Black and 2 Socks
+-- 3-pack. Add the customer, the order and the order lines. Then show the receipt with product
+-- names using a JOIN.
+-- Expected: the receipt has 2 rows
 
+-- NEW CUSTOMER
+INSERT INTO customers VALUES(11, 'Leo', 'Falk', '', 'Uppsala', '2026-10-09' );
 
+-- NEW ORDER
+INSERT INTO orders VALUES(16, 11, '2026-10-09', 'new');
 
+-- NEW ORDER ITEMS
+INSERT INTO order_items VALUES(16, 1, 1, 599), (16, 9, 2, 129);
 
+-- CUSTOMER RECEIPT
+SELECT p.product_id, p.name, oi.quantity, oi.unit_price, oi.quantity*oi.unit_price AS total_line
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+JOIN order_items oi ON o.order_id = oi.order_id
+JOIN products p ON oi.product_id = p.product_id
+WHERE C.customer_id = 11;
 
 
