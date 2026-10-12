@@ -115,12 +115,51 @@ WHERE c.city = 'Uppsala';
 -- Result: 8 rows returned in 13ms
 
 
+-- Extra exercises: review
+SELECT COUNT(*) FROM orders;
+
+-- Level 1
+-- Use webshop.db.
+-- Exercise 1
+-- Show products in Clothing or Accessories that cost between 150 and 500 kr. Most expensive first.
+-- Expected: 4 rows
+
+SELECT * FROM products
+WHERE category IN ('Clothing', 'Accessories') AND price > 150 AND price < 500;
+-- Result: 4 rows returned in 12ms
 
 
+-- Exercise 2
+-- Which orders were placed in February 2026 and are not cancelled?
+-- Expected: 4 rows
+SELECT * FROM orders
+WHERE strftime('%Y-%m', order_date) = '2026-02' AND status != 'cancelled';
+-- Result: 4 rows returned in 12ms
 
 
+-- Exercise 3
+-- Show every order line with the order_id, product name, quantity and line total (quantity times unit
+-- price). Only show lines where the line total is more than 500 kr. Biggest first.
+-- Expected: 11 rows
+
+SELECT o.order_id, p.name, oi.quantity, oi.quantity*oi.unit_price AS line_total
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+JOIN products p ON oi.product_id = p.product_id
+WHERE line_total > 500
+ORDER BY line_total DESC;
+-- Result: 11 rows returned in 13ms
 
 
+-- Exercise 4
+-- Which customers from Uppsala or Stockholm have placed at least one order? Each customer only
+-- once.
+-- Expected: 5 rows
+SELECT DISTINCT c.first_name
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+WHERE C.city IN ('Uppsala', 'Stockholm');
+-- Result: 5 rows returned in 17ms
 
 
 
