@@ -15,3 +15,13 @@
 -- 13. Music school (in pairs): 'Students take lessons from teachers. A lesson has a date, time, room and
 -- instrument. One teacher can teach many instruments.' Underline the things.
 -- Solution: students, teachers, lessons, instruments
+
+--TODO:
+-- 14. Find the relationships in the music school. Which are 1:N and which are N:M?
+-- Solution:
+
+-- 15. Draw the ER diagram for the music school.
+
+-- 16. Write the CREATE TABLE statements for the music school in a new file music.db.
+-- Database: create a new file. Click New Database, name it music.db, and click Cancel in the 'Edit
+-- table definition' window. Don't create these tables in webshop.db
