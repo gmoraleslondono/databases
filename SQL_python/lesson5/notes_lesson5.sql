@@ -107,6 +107,7 @@ FROM orders o
 JOIN order_items oi ON o.order_id = oi.order_id
 JOIN products p 	ON oi.product_id = p.product_id
 WHERE o.customer_id = 1;
+
 CREATE VIEW sales_for_analysts AS
 SELECT o.order_id, o.order_date, c.city, p.category,
 		oi.quantity * oi.unit_price AS amount
@@ -126,6 +127,7 @@ SET first_name = "Deleted",
 	email	  = NULL,
 	city 	  = NULL
 WHERE customer_id = 2;
+
 NoSQL (MongoDB)
 {"order_id":1 "customer": "Anna",
 "items": [{"product": "Hoodie Black"}, "qty":1]
