@@ -99,22 +99,22 @@ Problems from a bad design:
 
 ## Relationships
 
-| Relationship | Meaning | How to store it |
-| --- | --- | --- |
-| **1:1** | One person, one passport | A foreign key, or the same key in both tables |
-| **1:N** | One customer, many orders. One order has one customer | A foreign key on the "many" side |
-| **N:N** | Many orders, many products | A middle table |
+| Relationship | Meaning                                               | How to store it                               |
+| ------------ | ----------------------------------------------------- | --------------------------------------------- |
+| **1:1**      | One person, one passport                              | A foreign key, or the same key in both tables |
+| **1:N**      | One customer, many orders. One order has one customer | A foreign key on the "many" side              |
+| **N:N**      | Many orders, many products                            | A middle table                                |
 
 ### N:N example
 
 You can't put a list of products in one cell. Each product in an order needs its own row, so the middle table is `order_items`. Each row is one product in one order.
 
 | `order_id` | `product_id` | `quantity` |
-| --- | --- | --- |
-| 1 | 1 | 1 |
-| 1 | 2 | 1 |
-| 2 | 1 | 1 |
-| 2 | 3 | 1 |
+| ---------- | ------------ | ---------- |
+| 1          | 1            | 1          |
+| 1          | 2            | 1          |
+| 2          | 1            | 1          |
+| 2          | 3            | 1          |
 
 ```text
 orders 1---N order_items N---1 products
@@ -141,6 +141,8 @@ Tidying in three steps. Each step removes one kind of problem.
 3. **3NF** — a column must depend on the key, not on another normal column. If changing X means changing many rows, that column is probably in the wrong table.
 
 Every column must depend on the key, the whole key, and nothing but the key.
+
+Video recommended Database Normalization: [https://www.youtube.com/watch?v=GFQaEYEc8_8](https://www.youtube.com/watch?v=GFQaEYEc8_8)
 
 ## From words to tables
 
