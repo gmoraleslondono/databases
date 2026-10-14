@@ -1,7 +1,7 @@
 # Exercises: MongoDB basics
 # Do all exercises in Python, with the header from the code-along at the top of your file. Start by
-# running python webshop.py. Exercises 7 and 8 add data: when you are done, run python
-# webshop.py to reset the webshop.
+# running python seed_webshop.py. Exercises 7 and 8 add data: when you are done, run python
+# seed_webshop.py to reset the webshop.
 
 # The header (at the top of every Python file):
 
