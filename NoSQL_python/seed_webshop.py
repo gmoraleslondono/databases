@@ -1,4 +1,6 @@
-#  NOSQL/webshop.py / create the webshop database with customers, products and orders collections / reset the collections
+"""Creates (or resets) the webshop database in MongoDB.
+Run it with:  python seed_webshop.py
+WARNING: deletes the customers, products and orders collections first."""
 from datetime import datetime
 from pymongo import MongoClient
 
@@ -62,4 +64,3 @@ print("webshop is ready:",
       db.customers.count_documents({}), "customers,",
       db.products.count_documents({}), "products,",
       db.orders.count_documents({}), "orders")
-
