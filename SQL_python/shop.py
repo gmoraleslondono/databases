@@ -31,6 +31,25 @@ def add_product(conn):
     conn.commit()
     print("Saved!")
 
+def update_stock(conn):
+    product = int(input("Product_id: "))
+    new_stock = int(input("New stock: "))
+    query = "UPDATE products SET stock = ? WHERE product_id = ?"
+    conn.execute(query, (new_stock, product))
+    conn.commit()
+    print("Updated!")
+
+def show_receipt(conn):
+    order = int(input("Order Id: "))
+    query = "SELECT p.name, o.quantity, o.quantity*o.unit_price AS subtotal FROM orders o JOIN products p ON o.product_id = p.product_id WHERE o.order_id = ?"
+    cursor = conn.execute(query, (order,))
+    rows = cursor.fetchall()
+    if not rows:
+        print("No order found.")
+        return
+    for name, quantity, subtotal in rows:
+        print(name, quantity, subtotal)
+
 def main():
     conn = connect()
     while True:
@@ -42,6 +61,10 @@ def main():
             search_customers(conn)
         elif choice == "3":
             add_product(conn)
+        elif choice == "4":
+            update_stock(conn)
+        elif choice == "5":
+            show_receipt(conn)
         elif choice == "0":
             break
     conn.close()
