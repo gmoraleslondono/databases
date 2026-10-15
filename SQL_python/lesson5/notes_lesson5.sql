@@ -121,6 +121,7 @@ FROM sales_for_analysts
 GROUP BY city;
 
 DELETE FROM customers WHERE customer_id = 1;
+
 UPDATE customers
 SET first_name = "Deleted",
 	last_name = "customer",
