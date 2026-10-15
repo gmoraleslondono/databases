@@ -11,6 +11,7 @@
 
 # ---------------------------------------------------------------------------------------
 from pprint import pprint
+from datetime import datetime
 from pymongo import MongoClient
 client = MongoClient("mongodb://localhost:27017/")
 db = client["webshop"]
@@ -147,13 +148,57 @@ db = client["webshop"]
 # Exercise 8
 # Raise the price of all Accessories by 20 kr with $inc. Then print the Accessories with their new prices.
 # Expected: 4 products, each 20 kr more
+# Solution:
+# products = db.products.find({"category": "Accessories"}, {"price": 1})
+# for product in products:
+#     print(product)
+# {'_id': 3, 'price': 199}
+# {'_id': 5, 'price': 149}
+# {'_id': 7, 'price': 749}
+# {'_id': 10, 'price': 179}
+
+# result = db.products.update_many({"category": "Accessories"}, {"$inc": {"price": 20}})
+# print(result.modified_count)
+
+# products = db.products.find({"category": "Accessories"}, {"price": 1})
+# for product in products:
+#     print(product)
+# # {'_id': 3, 'price': 219}
+# # {'_id': 5, 'price': 169}
+# # {'_id': 7, 'price': 769}
+# # {'_id': 10, 'price': 199}
+
 
 # Exercise 9
 # Add the tag "new" to the Rain Jacket without creating duplicates, and give it a field restock_date
 # with today's date (use datetime.now()).
 # Expected: 1 product with the new tag and field (the time will be yours)
+#Solution:
+# product = db.products.find_one({"name": "Rain Jacket"})
+# print(product)
+# # {'_id': 11, 'name': 'Rain Jacket', 'category': 'Clothing', 'price': 1299, 'stock': 0, 'tags': ['winter', 'waterproof'], 'details': {'color': 'yellow', 'material': 'polyester'}}
+
+# result = db.products.update_one({"name": "Rain Jacket"}, {"$set": {"restock_date": datetime.now()}, "$addToSet": {"tags": "new"}})
+
+# print(result.modified_count)
+
+# product = db.products.find_one({"name": "Rain Jacket"})
+# print(product)
+# # {'_id': 11, 'name': 'Rain Jacket', 'category': 'Clothing', 'price': 1299, 'stock': 0, 'tags': ['winter', 'waterproof', 'new'], 'details': {'color': 'yellow', 'material': 'polyester'}, 'restock_date': datetime.datetime(2026, 10, 15, 11, 8, 12, 812000)}
+
 
 # Exercise 10
 # Challenge: delete all orders with status new placed before 2026-03-20. Count them first. Hint:
 # dates in filters are datetime objects, like datetime(2026, 3, 20).
 # Expected: 2, then 2 deleted
+# Solution:
+# orders = db.orders.find({"status": "new", "order_date": {"$lt": datetime(2026, 3, 20)}})
+
+# for order in orders:
+#     print(order["_id"], order["order_date"])
+# # 12 2026-03-15 00:00:00
+# # 13 2026-03-18 00:00:00
+
+# result = db.orders.delete_many({"status": "new", "order_date": {"$lt": datetime(2026, 3, 20)}})
+# print(result.deleted_count) # 2
+
